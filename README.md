@@ -7,38 +7,58 @@ A simple command-line AI assistant using OpenAI's API.
 - Ask questions and get answers from OpenAI models directly in your terminal
 - Keeps a log of interactions
 - Supports error reporting via GitHub issues
-- Reads environment variables from `.env`
+- Multi model support
+- Command running without leaving interface
+- Last command and the output passed to AI
 
 ## Installation
 
-1. Clone this repository:
-   ```sh
-   git clone https://github.com/Benedek553/cli-ai-assistant.git
-   cd cli-ai-assistant
-   ```
+### Install with NPM
 
-2. Install dependencies and make scripts executable:
-   ```sh
-   ./install.sh
-   ```
+1. Check you are use the latest version of Node
+   * If not download the latest version
+2. Download the `cli-ai-assistant` package
 
-3. Set up your `.env` file with your OpenAI API key:
-   ```
-   OPENAI_API_KEY=your_openai_api_key_here
-   ```
+```bash
+npm install -g cli-ai-assistant
+```
 
+3. Add .env file
+
+```bash
+export OPENAI_API_KEY=yourapikeyhere
+```
+*If you don't have OpenAI API key, check this [Benedek553/openai-api-free](https://github.com/Benedek553/openai-api-free)*
+
+### Install manually
+
+1. Clone the repo
+
+```bash
+git clone https://github.com/Benedek553/cli-ai-assistant.git
+cd cli-ai-assistant
+```
+
+2. Create a run.sh script, like this:
+
+```sh
+#!/bin/bash
+
+node /usr/local/lib/node_modules/cli-ai-assistant/index.js
+```
+3. Add to /usr/local/bin
+4. Export API key
+```bash
+export OPENAI_API_KEY=yourapikeyhere
+```
+*If you don't have OpenAI API key, check this [Benedek553/openai-api-free](https://github.com/Benedek553/openai-api-free)*
 ## Usage
 
-Start the assistant with:
+After a global install the `cli-ai-assistant` command will be available.
+Then start the assistant with:
 
 ```sh
 cli-ai-assistant
-```
-
-or
-
-```sh
-./run.sh
 ```
 
 You will see:

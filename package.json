@@ -1,26 +1,31 @@
 {
   "name": "cli-ai-assistant",
-  "version": "1.0.1",
+  "version": "1.1.11",
   "description": "A simple CLI AI assistant using OpenAI's API.",
   "main": "index.js",
   "type": "module",
-  "scripts": {
-    "postinstall": "./install.sh"
-  },
+  "scripts": {},
   "bin": {
-    "cli-ai-assistant": "./run.sh"
+    "cli-ai-assistant": "./index.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Benedek553/cli-ai-assistant.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "ai",
+    "cli",
+    "assistant",
+    "openai",
+    "gpt",
+    "cli-ai-assistant"
+  ],
+  "author": "Benedek553",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Benedek553/cli-ai-assistant/issues"
   },
-  "homepage": "https://github.com/Benedek553/cli-ai-assistant#readme",
+  "homepage": "https://benedek553.github.io/cli-ai-assistant/",
   "dependencies": {
     "dotenv": "^17.2.3",
     "env": "^0.0.2",
