@@ -234,17 +234,27 @@
     </div>
   <div id="install" class="page">
       <h1>Installation</h1>
+      <h2>Install with NPM (recommended)</h2>
       <ol>
-        <li>Clone this repository:
-          <pre><code>git clone https://github.com/Benedek553/cli-ai-assistant.git
-cd cli-ai-assistant</code></pre>
-        </li>
-        <li>Install dependencies and make scripts executable:
-          <pre><code>./install.sh</code></pre>
+        <li>Install with NPM:
+          <pre><code>npm install --global cli-ai-assistant</code></pre>
         </li>
         <li>Set up your <code>.env</code> file with your OpenAI API key:
-          <pre><code>OPENAI_API_KEY=your_openai_api_key_here</code></pre>
+          <pre><code>export OPENAI_API_KEY=your_api_key</code></pre>
         </li>
+      </ol>
+      <h2>Install manually</h2>
+      <ol>
+        <il>Clone the repo:
+          <pre><code>git clone https://github.com/Benedek553/cli-ai-assistant.git</code></pre>
+        </il>
+        <il>
+          Run install utility:
+          <pre><code>node install.js</code></pre>
+        </il>
+        <il>Add to /usr/local/bin:
+          <pre><code>mv index.js /usr/local/bin</code></pre>
+        </il>
       </ol>
       <h2>License</h2>
       <p>This project is licensed under the <a href="https://github.com/Benedek553/cli-ai-assistant/blob/main/LICENSE" target="_blank">Apache License 2.0</a>.</p>
