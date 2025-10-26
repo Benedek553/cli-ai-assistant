@@ -3,6 +3,7 @@ import { exec } from 'child_process';
 import fs from 'fs';
 import path from 'path';
 import readline from 'readline';
+import os from 'os';
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -25,8 +26,7 @@ function run(cmd, opts = {}) {
 async function main() {
   try {
     rl.question('Kérlek add meg a neved: ', async (username) => {
-      const homeDir = process.env.HOME || process.env.USERPROFILE || cwd;
-      const dataDir = path.join(homeDir, '.cli-ai-assistant');
+      const dataDir = path.join(os.homedir(), '.cli-ai-assistant');
       if (!fs.existsSync(dataDir)) {
         fs.mkdirSync(dataDir, { recursive: true });
       }

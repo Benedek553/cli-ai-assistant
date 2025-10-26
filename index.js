@@ -8,6 +8,7 @@ import { exec } from 'child_process';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import path from 'path';
+import os from 'os';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -28,9 +29,8 @@ const rl = readline.createInterface({
 let currentModel = 'gpt-3.5-turbo';
 
 // Create data directory for logs and temporary files
-// Use user's home directory for global installations
-const homeDir = process.env.HOME || process.env.USERPROFILE || '.';
-const dataDir = path.join(homeDir, '.cli-ai-assistant');
+// Use user's home directory for data storage
+const dataDir = path.join(os.homedir(), '.cli-ai-assistant');
 if (!fs.existsSync(dataDir)) {
   fs.mkdirSync(dataDir, { recursive: true });
 }

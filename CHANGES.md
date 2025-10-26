@@ -103,19 +103,20 @@ if (platform === 'darwin') {
 
 ### 7. Centralized Data Directory ✅
 **File:** `index.js`  
-**Lines Added:** 30-36, 46, 59, 252  
+**Lines Added:** 11, 30-35, 46, 59, 252  
 
 **Changes:**
-- Created `.cli-ai-assistant` directory in the user's home directory
+- Added import: `import os from 'os';`
+- Created `.cli-ai-assistant` directory in the user's home directory using `os.homedir()`
 - Moved all generated files to this directory:
   - `app.log` → `~/.cli-ai-assistant/app.log`
   - `command.txt` → `~/.cli-ai-assistant/command.txt`
   - `command_output.txt` → `~/.cli-ai-assistant/command_output.txt`
   - `user.txt` → `~/.cli-ai-assistant/user.txt`
 - Added automatic directory creation on startup
-- Uses HOME or USERPROFILE environment variables for cross-platform home directory detection
+- Uses Node.js built-in `os.homedir()` for reliable cross-platform home directory detection
 
-**Rationale:** Prevents polluting the user's working directory with application files. Provides consistent file locations regardless of where the CLI is run from. Using home directory ensures it works correctly with both local and global npm installations.
+**Rationale:** Prevents polluting the user's working directory with application files. Provides consistent file locations regardless of where the CLI is run from. Using home directory ensures it works correctly with both local and global npm installations. `os.homedir()` is more reliable than manual environment variable checks.
 
 ---
 
@@ -272,14 +273,15 @@ if (input === '') {
 
 ### 15. Updated Install Script ✅
 **File:** `install.js`  
-**Lines Changed:** 27-31  
+**Lines Added:** 6, 27-30  
 
 **Changes:**
-- Updated to create `.cli-ai-assistant` directory in user's home directory
+- Added import: `import os from 'os';`
+- Updated to create `.cli-ai-assistant` directory in user's home directory using `os.homedir()`
 - Changed `user.txt` location to `~/.cli-ai-assistant/user.txt`
-- Added cross-platform home directory detection
+- Reliable cross-platform home directory detection
 
-**Rationale:** Consistency with the updated file structure in main application and better support for global installations.
+**Rationale:** Consistency with the updated file structure in main application and better support for global installations. Using `os.homedir()` ensures reliable home directory detection across all platforms.
 
 ---
 
