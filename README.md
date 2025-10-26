@@ -73,12 +73,15 @@ Type your question and press Enter.
 
 ### Commands
 
+- `/help` — Show available commands and usage information
 - `/exit` — Exit the assistant
 - `/error-report` — Open the GitHub issues page for bug reporting
+- `/model-selection` — Select a different AI model (gpt-4, gpt-4-turbo, gpt-3.5-turbo)
+- `/version` — Show version information
 
 ## Logging
 
-All interactions are logged to `app.log` in the project directory.
+All interactions are logged to `~/.cli-ai-assistant/app.log` in your home directory.
 
 ## License
 
