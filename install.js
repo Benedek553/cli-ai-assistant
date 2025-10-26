@@ -25,7 +25,11 @@ function run(cmd, opts = {}) {
 async function main() {
   try {
     rl.question('Kérlek add meg a neved: ', async (username) => {
-      fs.writeFileSync(path.join(cwd, 'user.txt'), username + '\n');
+      const dataDir = path.join(cwd, '.cli-ai-data');
+      if (!fs.existsSync(dataDir)) {
+        fs.mkdirSync(dataDir, { recursive: true });
+      }
+      fs.writeFileSync(path.join(dataDir, 'user.txt'), username + '\n');
       rl.close();
 
       console.log('Installing npm dependencies...');
