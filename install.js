@@ -25,7 +25,8 @@ function run(cmd, opts = {}) {
 async function main() {
   try {
     rl.question('Kérlek add meg a neved: ', async (username) => {
-      const dataDir = path.join(cwd, '.cli-ai-data');
+      const homeDir = process.env.HOME || process.env.USERPROFILE || cwd;
+      const dataDir = path.join(homeDir, '.cli-ai-assistant');
       if (!fs.existsSync(dataDir)) {
         fs.mkdirSync(dataDir, { recursive: true });
       }

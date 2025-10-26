@@ -28,7 +28,9 @@ const rl = readline.createInterface({
 let currentModel = 'gpt-3.5-turbo';
 
 // Create data directory for logs and temporary files
-const dataDir = path.join(__dirname, '.cli-ai-data');
+// Use user's home directory for global installations
+const homeDir = process.env.HOME || process.env.USERPROFILE || '.';
+const dataDir = path.join(homeDir, '.cli-ai-assistant');
 if (!fs.existsSync(dataDir)) {
   fs.mkdirSync(dataDir, { recursive: true });
 }
@@ -189,11 +191,22 @@ function showHelp() {
 
 async function showVersion() {
   try {
-    const packagePath = path.join(__dirname, 'package.json');
-    const packageData = JSON.parse(fs.readFileSync(packagePath, 'utf-8'));
-    console.log(`CLI AI Assistant v${packageData.version}`);
+    // Try to read package.json from __dirname first (local dev)
+    let packagePath = path.join(__dirname, 'package.json');
+    if (!fs.existsSync(packagePath)) {
+      // Fallback for global installation - try parent directories
+      packagePath = path.join(__dirname, '..', 'package.json');
+    }
+    
+    if (fs.existsSync(packagePath)) {
+      const packageData = JSON.parse(fs.readFileSync(packagePath, 'utf-8'));
+      console.log(`CLI AI Assistant v${packageData.version}`);
+    } else {
+      // If package.json not found, show a generic message
+      console.log('CLI AI Assistant');
+    }
   } catch (err) {
-    console.log('CLI AI Assistant (version unknown)');
+    console.log('CLI AI Assistant');
   }
 }
 

@@ -103,28 +103,30 @@ if (platform === 'darwin') {
 
 ### 7. Centralized Data Directory ✅
 **File:** `index.js`  
-**Lines Added:** 30-34, 46, 59, 252  
+**Lines Added:** 30-36, 46, 59, 252  
 
 **Changes:**
-- Created `.cli-ai-data` directory in the application directory
+- Created `.cli-ai-assistant` directory in the user's home directory
 - Moved all generated files to this directory:
-  - `app.log` → `.cli-ai-data/app.log`
-  - `command.txt` → `.cli-ai-data/command.txt`
-  - `command_output.txt` → `.cli-ai-data/command_output.txt`
-  - `user.txt` → `.cli-ai-data/user.txt`
+  - `app.log` → `~/.cli-ai-assistant/app.log`
+  - `command.txt` → `~/.cli-ai-assistant/command.txt`
+  - `command_output.txt` → `~/.cli-ai-assistant/command_output.txt`
+  - `user.txt` → `~/.cli-ai-assistant/user.txt`
 - Added automatic directory creation on startup
+- Uses HOME or USERPROFILE environment variables for cross-platform home directory detection
 
-**Rationale:** Prevents polluting the user's working directory with application files. Provides consistent file locations regardless of where the CLI is run from.
+**Rationale:** Prevents polluting the user's working directory with application files. Provides consistent file locations regardless of where the CLI is run from. Using home directory ensures it works correctly with both local and global npm installations.
 
 ---
 
 ### 8. Updated .gitignore ✅
 **File:** `.gitignore`  
-**Lines Added:** 10-15  
+**Lines Added:** 10-16  
 
 **Changes:**
 ```
 # CLI AI Assistant data directory
+.cli-ai-assistant/
 .cli-ai-data/
 
 # User data files
@@ -133,7 +135,7 @@ command.txt
 command_output.txt
 ```
 
-**Rationale:** Prevents accidentally committing personal user data and temporary files to version control.
+**Rationale:** Prevents accidentally committing personal user data and temporary files to version control. Includes both old and new directory names for backwards compatibility.
 
 ---
 
@@ -210,22 +212,32 @@ function showHelp() {
 
 ### 12. Added Version Command ✅
 **File:** `index.js`  
-**Lines Added:** 190-198, 217-221  
+**Lines Added:** 190-207, 217-221  
 
 **Changes:**
 ```javascript
 async function showVersion() {
   try {
-    const packagePath = path.join(__dirname, 'package.json');
-    const packageData = JSON.parse(fs.readFileSync(packagePath, 'utf-8'));
-    console.log(`CLI AI Assistant v${packageData.version}`);
+    // Try to read package.json from __dirname first (local dev)
+    let packagePath = path.join(__dirname, 'package.json');
+    if (!fs.existsSync(packagePath)) {
+      // Fallback for global installation - try parent directories
+      packagePath = path.join(__dirname, '..', 'package.json');
+    }
+    
+    if (fs.existsSync(packagePath)) {
+      const packageData = JSON.parse(fs.readFileSync(packagePath, 'utf-8'));
+      console.log(`CLI AI Assistant v${packageData.version}`);
+    } else {
+      console.log('CLI AI Assistant');
+    }
   } catch (err) {
-    console.log('CLI AI Assistant (version unknown)');
+    console.log('CLI AI Assistant');
   }
 }
 ```
 
-**Rationale:** Allows users to check their installed version for troubleshooting.
+**Rationale:** Allows users to check their installed version for troubleshooting. Handles both local development and global npm installation scenarios.
 
 ---
 
@@ -260,13 +272,14 @@ if (input === '') {
 
 ### 15. Updated Install Script ✅
 **File:** `install.js`  
-**Lines Changed:** 27-29  
+**Lines Changed:** 27-31  
 
 **Changes:**
-- Updated to create `.cli-ai-data` directory
-- Changed `user.txt` location to `.cli-ai-data/user.txt`
+- Updated to create `.cli-ai-assistant` directory in user's home directory
+- Changed `user.txt` location to `~/.cli-ai-assistant/user.txt`
+- Added cross-platform home directory detection
 
-**Rationale:** Consistency with the updated file structure in main application.
+**Rationale:** Consistency with the updated file structure in main application and better support for global installations.
 
 ---
 

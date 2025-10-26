@@ -81,7 +81,7 @@ Type your question and press Enter.
 
 ## Logging
 
-All interactions are logged to `.cli-ai-data/app.log` in the application directory.
+All interactions are logged to `~/.cli-ai-assistant/app.log` in your home directory.
 
 ## License
 
