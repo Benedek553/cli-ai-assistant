@@ -1,5 +1,4 @@
-#!/usr/bin/env node
-import openai from 'openai';
+#!/usr/import { OpenAI } from 'openai';import{ OpenAI }openai from 'openai';
 import winston from 'winston';
 import fs from 'fs';
 import 'dotenv/config';
